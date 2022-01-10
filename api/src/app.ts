@@ -1,10 +1,13 @@
 import express from 'express';
 import { connectDB } from './mongo';
+import { router } from './routes/todo';
 
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use('/todo', router);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

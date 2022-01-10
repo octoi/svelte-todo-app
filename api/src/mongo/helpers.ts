@@ -12,7 +12,7 @@ export const getAllTodos = () => {
 
 export const createTodo = (todo: string) => {
   return new Promise((resolve, reject) => {
-    TodoModel.create({ todo })
+    TodoModel.create({ todo, resolved: false })
       .then(resolve)
       .catch(() => reject('Failed to create todo'));
   });
