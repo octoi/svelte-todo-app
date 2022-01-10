@@ -1,0 +1,21 @@
+services:
+  db:
+    image: mongo
+    networks:
+      - webnet
+    volumes:
+      - ./data:/data/db
+    ports:
+      - '27018:27017'
+
+  api:
+    image: todo-api
+    ports:
+      - '5000:5000'
+    networks:
+      - webnet
+    environment:
+      - MONGO_DB_URL=mongodb://db:27017/todo-app
+    command: ['./wait-for-it.sh', 'db:27017', '--', './start-script.sh']
+networks:
+  webnet:
