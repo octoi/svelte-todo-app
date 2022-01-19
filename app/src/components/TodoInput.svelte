@@ -1,12 +1,17 @@
 <script lang="ts">
+  import type { TodoType } from '../utils/types';
+  import { todoStore } from '../store/todoStore';
   import { newTodo } from '../api';
 
   let todoValue: string = '';
 
   const handleFormSubmit = () => {
     newTodo(todoValue)
-      .then((todo) => {
+      .then((todo: TodoType) => {
         todoValue = '';
+
+        // add new todo to todoStore
+        todoStore.update((allTodos) => [todo, ...allTodos]);
       })
       .catch((err) => {
         alert(err);
