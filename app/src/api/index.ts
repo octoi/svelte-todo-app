@@ -1,6 +1,18 @@
 import axios from 'axios';
 import { API_ENDPOINT } from '../utils/constants';
 
+export const getTodos = () => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(API_ENDPOINT)
+      .then((res) => resolve(res.data))
+      .catch((err) => {
+        console.log(err);
+        resolve([]);
+      });
+  });
+};
+
 export const newTodo = (todo: string) => {
   return new Promise((resolve, reject) => {
     axios
