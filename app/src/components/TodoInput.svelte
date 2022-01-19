@@ -19,14 +19,11 @@
   };
 </script>
 
-<form
-  on:submit|preventDefault={handleFormSubmit}
-  class="mt-5 w-full flex justify-center"
->
+<form on:submit|preventDefault={handleFormSubmit} class="mt-5 w-full flex">
   <input
     type="text"
     placeholder="New Todo"
-    class="bg-app-secondaryDark p-4 rounded-md text-xl w-full md:w-1/3 border-2 border-app-secondaryDark outline-none focus:border-app-wisteria"
+    class="w-full bg-app-secondaryDark p-4 rounded-md text-xl border-2 border-app-secondaryDark outline-none focus:border-app-wisteria"
     bind:value={todoValue}
     required
   />
