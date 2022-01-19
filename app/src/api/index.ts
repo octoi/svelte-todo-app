@@ -45,3 +45,17 @@ export const resolveTodo = (id: string, resolved: boolean) => {
       });
   });
 };
+
+export const deleteTodo = (id: string) => {
+  return new Promise((resolve, reject) => {
+    const url = `${API_ENDPOINT}${id}`;
+
+    axios
+      .delete(url)
+      .then(resolve)
+      .catch((err) => {
+        console.log(err);
+        reject('Failed to delete todo');
+      });
+  });
+};
