@@ -1,6 +1,16 @@
 <script lang="ts">
+  import { newTodo } from '../api';
+
+  let todoValue: string = '';
+
   const handleFormSubmit = () => {
-    alert('Form submit');
+    newTodo(todoValue)
+      .then((todo) => {
+        todoValue = '';
+      })
+      .catch((err) => {
+        alert(err);
+      });
   };
 </script>
 
@@ -12,6 +22,8 @@
     type="text"
     placeholder="New Todo"
     class="bg-app-secondaryDark p-4 rounded-md text-xl w-full md:w-1/3 border-2 border-app-secondaryDark outline-none focus:border-app-wisteria"
+    bind:value={todoValue}
+    required
   />
   <button
     class="font-medium text-xl ml-2 rounded-md px-3 bg-app-secondaryDark wrounded-full flex items-center justify-center transition-all hover:bg-app-wisteria hover:text-app-primaryDark"
