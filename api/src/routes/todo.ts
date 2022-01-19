@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
     .catch((err) => res.send(err).status(404));
 });
 
-router.post('/create', (req, res) => {
+router.post('/', (req, res) => {
   const todo = req.body?.todo;
 
   if (!todo) {
@@ -27,7 +27,7 @@ router.post('/create', (req, res) => {
     .catch((err) => res.send(err).status(404));
 });
 
-router.put('/resolve/:id', (req, res) => {
+router.put('/:id', (req, res) => {
   const todoId = req.params.id;
   const resolve = req.body?.resolve;
 
@@ -41,7 +41,7 @@ router.put('/resolve/:id', (req, res) => {
     .catch((err) => res.send(err).status(404));
 });
 
-router.delete('/delete/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
   const todoId = req.params.id;
 
   if (!todoId) {
