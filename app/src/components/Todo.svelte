@@ -1,5 +1,7 @@
 <script lang="ts">
   import type { TodoType } from '../utils/types';
+  import { resolveTodo } from '../api';
+  import { todoStore } from '../store/todoStore';
 
   export let todo: TodoType;
 
@@ -7,6 +9,21 @@
 
   const handleChange = () => {
     resolved = !resolved;
+    resolveTodo(todo._id, !todo.resolved)
+      .then(() => {
+        todoStore.update((todos) => {
+          return todos.filter((todoItem) => {
+            if (todoItem._id === todo._id) {
+              todoItem.resolved = !todoItem.resolved;
+            }
+            return todoItem;
+          });
+        });
+      })
+      .catch((msg) => {
+        alert(msg);
+        resolved = todo.resolved;
+      });
   };
 </script>
 
@@ -26,7 +43,7 @@
       type="checkbox"
       checked={resolved}
       on:change={handleChange}
-      class="rounded-full checkbox border-app-wisteria mr-2 checked:border-app-secondaryDark checked:bg-app-wisteria"
+      class="rounded-full checkbox border-app-wisteria mr-2 checked:border-app-secondaryDark"
     />
     <button>
       <i
@@ -46,7 +63,6 @@
     background-color: none;
     border-width: 2px;
     padding: 9px;
-    /* border-radius: 3px; */
     display: inline-block;
     position: relative;
     overflow: none;
