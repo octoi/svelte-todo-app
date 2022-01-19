@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { TodoType } from '../utils/types';
-  import { resolveTodo } from '../api';
+  import { deleteTodo, resolveTodo } from '../api';
   import { todoStore } from '../store/todoStore';
 
   export let todo: TodoType;
@@ -25,6 +25,19 @@
         resolved = todo.resolved;
       });
   };
+
+  const handleDeleteTodo = () => {
+    const permission = confirm('Are you sure ?');
+    if (!permission) return;
+
+    deleteTodo(todo._id)
+      .then(() => {
+        todoStore.update((todos) =>
+          todos.filter((todoItem) => todoItem._id !== todo._id)
+        );
+      })
+      .catch(alert);
+  };
 </script>
 
 <div
@@ -45,7 +58,7 @@
       on:change={handleChange}
       class="rounded-full checkbox border-app-wisteria mr-2 checked:border-app-secondaryDark"
     />
-    <button>
+    <button on:click={handleDeleteTodo}>
       <i
         class="far fa-trash-alt text-xl text-app-wisteria"
         class:text-app-secondaryDark={resolved}
