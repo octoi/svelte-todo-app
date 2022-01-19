@@ -31,3 +31,17 @@ export const newTodo = (todo: string) => {
       });
   });
 };
+
+export const resolveTodo = (id: string, resolved: boolean) => {
+  return new Promise((resolve, reject) => {
+    const url = `${API_ENDPOINT}${id}`;
+
+    axios
+      .put(url, { resolve: resolved })
+      .then(resolve)
+      .catch((err) => {
+        console.log(err);
+        reject('Failed to resolve todo');
+      });
+  });
+};
